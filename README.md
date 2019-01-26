@@ -1,4 +1,7 @@
-# Team Submission for nwHacks 2019
+![Adsight](Resources/logo_alpha.png)
+
+# AdSight - Team Submission for nwHacks 2019
+Contributors: Jacky Zhao, Gavin Lim, Viral Galaiya, Rishab Manocha
 
 ### Proposal
 * Determine success of a advertisement based on number of people and duration it is looked at
