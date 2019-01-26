@@ -1,0 +1,35 @@
+{
+    "time": "string - date stamp",
+    "age": 21,
+    "gender": "string male/female",
+    "start_reaction": "string", // note to get this value from the emotion object not the smile.
+    "end_reaction": "string",
+    "smile": true, // boolean. this is it's own value. Don't confuse with reaction.
+    "view_time": 23400, // milliseconds
+    "face_attributes": {
+        "hair": {
+            "color": "string",
+            "bald": true // boolean
+        },
+        "facial_hair": {
+            "moustache": true, // boolean
+            "beard": true // boolean
+        },
+        "accessories": {
+            "glasses": {
+                // get these value from the glasses from the glasses object. ignore the glasses value in the accessories array. don't ignore other accessories 
+                "type": "ReadingGlasses",
+                "wearing": true // boolean
+            },
+            "makeup": {
+                "eyeMakeup": false,
+                "lipMakeup": true
+            }
+        }, 
+        "occlusion": {
+            "foreheadOccluded": false,
+            "eyeOccluded": false,
+            "mouthOccluded": false
+          }
+    }
+}
