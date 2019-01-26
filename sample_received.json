@@ -1,11 +1,10 @@
 {
-    "time": "string - date stamp",
+    "faceID": "string",
     "age": 21,
     "gender": "string male/female",
     "start_reaction": "string", // note to get this value from the emotion object not the smile.
     "end_reaction": "string",
-    "smile": true, // boolean. this is it's own value. Don't confuse with reaction.
-    "view_time": 23400, // milliseconds
+    "timeline": "string of 0s or 1s e.g. 00001110011" //Where 0 represents not looking and 1 represents looking
     "face_attributes": {
         "hair": {
             "color": "string",
