@@ -3,7 +3,6 @@ import requests
 import io
 from matplotlib import patches
 from PIL import Image
-import json
 
 def annotate_image(image_url, faces):
 
@@ -11,7 +10,7 @@ def annotate_image(image_url, faces):
     image = Image.open(image_file)
 
     plt.figure(figsize=(8,8))
-    ax = plt.imshow(image, alpha=0.6)
+    ax = plt.imshow(image, alpha=1.0)
     for face in faces:
         fr = face["faceRectangle"]
         fa = face["faceAttributes"]
@@ -34,7 +33,3 @@ def get_resp(image_url, params):
     response = requests.post(__face_api_url, params=params, headers=headers, json={"url": image_url})
     faces = response.json()
     return faces
-
-def get_json_val(json_str, val):
-    string = json.loads(json_str)
-    return

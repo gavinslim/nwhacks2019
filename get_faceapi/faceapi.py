@@ -8,8 +8,9 @@ params = {
     'returnFaceAttributes': 'age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise',
 }
 
-faces = faceapi_utils.get_resp(image_url, params)
-print(faceapi_utils.interp_json(faces))
+faces = faceapi_utils.get_resp(image_url, params) #Array of all faces
+print(faces)
+people = []
+
+
 faceapi_utils.annotate_image(image_url, faces)
-# faces = faceapi_utils.get_resp(image_url, params)
-# print(faces)
