@@ -54,8 +54,6 @@ class Person:
         else:
             return True
 
-    #def
-
     def toJSON(self):
         #TODO Return JSON of class
         pass

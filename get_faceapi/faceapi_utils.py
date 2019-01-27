@@ -23,8 +23,7 @@ def annotate_image(image_url, people):
     plt.show()
 
 def get_resp(path, params):
-    __subscription_key = "30c9191c099b4dc5b8cf3ebe1cf06310"
-    assert __subscription_key
+    __subscription_key = "61246efcaeac473fa675ffd8446b8110"
     __face_api_url = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect'
 
     headers = { 'Content-Type': 'application/octet-stream',
@@ -36,13 +35,16 @@ def get_resp(path, params):
     faces = response.json()
     return faces
 
-def get_similarity(faceID1, faceID2):
-    __subscription_key = "30c9191c099b4dc5b8cf3ebe1cf06310"
-    assert __subscription_key
+def get_similar(faceID1, faceID2):
+    __subscription_key = "61246efcaeac473fa675ffd8446b8110"
     __face_api_url = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/verify'
 
-    response = requests.post(__face_api_url, json={"faceId1": faceID1, "faceId2": faceID2})
-    if response["isIdentical"] == "true" and response["confidence"] >= 0.7:
+    headers = {'Content-Type': 'application/json',
+               'Ocp-Apim-Subscription-Key': __subscription_key}
+
+    response = requests.post(__face_api_url, headers=headers, json={"faceId1": faceID1, "faceId2": faceID2})
+    response = response.json()
+    if response["isIdentical"] and response["confidence"] >= 0.7:
         return True
     else:
         return False

@@ -4,12 +4,7 @@ import glob
 from datetime import datetime
 __TIME__ = datetime.utcnow()
 
-local0 = "test_imgs/0.jpg"
-local1 = "test_imgs/1.jpg"
-local2 = "test_imgs/2.jpg"
-
 local_imgglob = glob.glob("test_imgs/*.jpg")
-print(local_imgglob)
 
 params = {
     'returnFaceId': 'true',
@@ -20,12 +15,18 @@ params = {
 people = {}
 
 for im in local_imgglob:
-    faces = faceapi_utils.get_resp(im, params) #Array of all faces
-
+    faces = faceapi_utils.get_resp(im, params) #Array of all faces in frame
     for p in faces:
-        #if p["faceID"] 
-        newPerson = person.Person(p, __TIME__)
-        print(newPerson.faceID)
-        people[newPerson.faceID] = newPerson
+        if len(people.values()) == 0:
+            newPerson = person.Person(p, __TIME__)
+            people[newPerson.faceID] = newPerson
+        else:
+            for k in people.values():
+                if faceapi_utils.get_similar(p['faceId'], k.faceID):
+                    #Handle new values
+                    pass
+                else:
+                    newPerson = person.Person(p, __TIME__)
+                    people[newPerson.faceID] = newPerson
 
     #faceapi_utils.annotate_image(im, people)
