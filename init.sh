@@ -6,6 +6,6 @@ echo 'Init AdSight service'
 python local-vision.py
 
 function finish {
-  pkill -f local-vision.py
+  killall python
 }
 trap finish EXIT

@@ -35,6 +35,7 @@ def get_resp(path, params):
 
     response = requests.post(__face_api_url, params=params, headers=headers, data=data)
     faces = response.json()
+    response.close()
     return faces
 
 def get_similar(faceID1, faceID2):
@@ -45,9 +46,9 @@ def get_similar(faceID1, faceID2):
     headers = {'Content-Type': 'application/json',
                'Ocp-Apim-Subscription-Key': __subscription_key}
 
-    response = requests.post(__face_api_url, headers=headers, json={"faceId1": faceID1, "faceId2": faceID2})
-    response = response.json()
-    print(response, faceID1, faceID2)
+    res = requests.post(__face_api_url, headers=headers, json={"faceId1": faceID1, "faceId2": faceID2})
+    response = res.json()
+    res.close()
     if response["isIdentical"] and response["confidence"] >= 0.7:
         return True
     else:
@@ -63,10 +64,9 @@ def post_newPerson(path, target):
 
     data = open(path, "rb")
 
-    response = requests.post(__face_api_url, headers=headers, data = data)
-    response = response.json()
-    print(response)
-
+    res = requests.post(__face_api_url, headers=headers, data = data)
+    response = res.json()
+    res.close()
     return response["persistedFaceId"]
 
 def post_facelist():
@@ -94,6 +94,6 @@ def post_findsimilars(faceId):
     if len(response.json()) == 0:
         return None
     else:
-        print(response.json())
-        response = response.json()[0]
-        return response["persistedFaceId"]#, response["confidence"]
+        res = response.json()[0]
+        response.close()
+        return res["persistedFaceId"]#, response["confidence"]

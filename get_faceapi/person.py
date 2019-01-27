@@ -25,7 +25,7 @@ class Person:
         self.headpose_roll = self.attr["headPose"]["roll"]
         self.headpose_yaw = self.attr["headPose"]["yaw"]
         self.hair_bald = self.softmax(self.attr["hair"]["bald"])
-        self.hair_color = self.softmax_multis(self.attr["hair"]["hairColor"])
+        self.hair_color = self.softmax_hcol(self.attr["hair"]["hairColor"])
         self.accessories = []
 
         if not self.attr["glasses"] == "NullGlasses":
@@ -69,9 +69,18 @@ class Person:
             return False
 
     def softmax_multis(self, d):
-         v = list(d.values())
-         k = list(d.keys())
-         return k[v.index(max(v))]
+        v = list(d.values())
+        k = list(d.keys())
+        return k[v.index(max(v))]
+
+    def softmax_hcol(self, d):
+        conf_max = 0
+        ret_str = ""
+        for x in d:
+            if x["confidence"] > conf_max:
+                conf_max = x["confidence"]
+                ret_str = x["color"]
+        return ret_str
 
     def get_if_looking(self):
         if abs(self.headpose_yaw) > self.__YAWBOUND__:
