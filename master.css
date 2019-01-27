@@ -1,0 +1,19 @@
+body {
+    overflow-x: hidden;
+}
+nav.sidebar {
+    max-width: 30%;
+    min-width: 300px;
+    min-height: 100vh;
+    position: fixed;
+    overflow: scroll;
+    transition: transform 0.3s ease-in-out;
+}
+
+nav.sidebar.hide {
+    transform: translateX(-100%);
+}
+
+input {
+    max-width: 100%;
+}
