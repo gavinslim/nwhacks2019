@@ -2,6 +2,7 @@ import faceapi_utils
 import person
 import glob
 import time
+import dump_to_json
 from datetime import datetime
 
 local_imgglob = glob.glob("small_test/*.jpg")
@@ -40,10 +41,18 @@ for im in local_imgglob:
         if not x in updated_faces:
             people[x].elim_inactive()
 
-    faceapi_utils.annotate_image(im, people)
+    #faceapi_utils.annotate_image(im, people)
     print(len(people), len(faces))
     print(im)
     print('_____________')
 
+longest = 0
 for PeopleID in people.keys():
+    if len(people[PeopleID].timeline) > longest:
+        longest = len(people[PeopleID].timeline)
+
+for PeopleID in people.keys():
+    people[PeopleID].timeline = "0" * (longest - len(people[PeopleID].timeline)) + people[PeopleID].timeline
     print(people[PeopleID].timeline)
+
+y = dump_to_json.dump(people)

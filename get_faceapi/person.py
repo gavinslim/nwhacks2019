@@ -14,8 +14,8 @@ class Person:
         try:
             self.faceID = json_str["faceId"]
         except TypeError:
-            print('TIMEOUT: Wait 3 sec')
-            time.sleep(3)
+            print('TIMEOUT: Wait 20 sec')
+            time.sleep(20)
             self.faceID = json_str["faceId"]
 
         self.rect = json_str["faceRectangle"]
@@ -24,6 +24,8 @@ class Person:
         self.gender = self.attr["gender"]
         self.headpose_roll = self.attr["headPose"]["roll"]
         self.headpose_yaw = self.attr["headPose"]["yaw"]
+        self.hair_bald = self.softmax(self.attr["hair"]["bald"])
+        self.hair_color = self.softmax_multis(self.attr["hair"]["hairColor"])
         self.accessories = []
 
         if not self.attr["glasses"] == "NullGlasses":
@@ -35,13 +37,12 @@ class Person:
         self.occlusion_forehead = self.attr["occlusion"]["foreheadOccluded"]
         self.occlusion_eye = self.attr["occlusion"]["eyeOccluded"]
         self.occlusion_mouth = self.attr["occlusion"]["mouthOccluded"]
-        self.emotion_i = self.softmax_emotions(self.attr["emotion"]) #Initial emotion
-        self.emotion = self.softmax_emotions(self.attr["emotion"]) #SOFTMAX INPUT
+        self.emotion_i = self.softmax_multis(self.attr["emotion"]) #Initial emotion
+        self.emotion = self.softmax_multis(self.attr["emotion"]) #SOFTMAX INPUT
         self.makeup_eye = self.attr["makeup"]["eyeMakeup"]
         self.makeup_lip = self.attr["makeup"]["lipMakeup"]
         self.moustache = self.softmax(self.attr["facialHair"]["moustache"])
         self.beard = self.softmax(self.attr["facialHair"]["beard"])
-        self.sideburns = self.softmax(self.attr["facialHair"]["sideburns"])
         self.total_time = 0.0
 
     def update_vals(self, updated_face):
@@ -50,7 +51,7 @@ class Person:
         self.attr = updated_face["faceAttributes"]
         self.headpose_roll = self.attr["headPose"]["roll"]
         self.headpose_yaw = self.attr["headPose"]["yaw"]
-        self.emotion = self.softmax_emotions(self.attr["emotion"]) #SOFTMAX INPUT
+        self.emotion = self.softmax_multis(self.attr["emotion"]) #SOFTMAX INPUT
 
         if self.get_if_looking() == True:
             self.timeline += "1"
@@ -67,7 +68,7 @@ class Person:
         else:
             return False
 
-    def softmax_emotions(self, d):
+    def softmax_multis(self, d):
          v = list(d.values())
          k = list(d.keys())
          return k[v.index(max(v))]
