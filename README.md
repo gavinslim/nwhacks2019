@@ -24,3 +24,7 @@
 1. Jevois Camera: [Link](http://jevois.org/) - Open-source machine vision. OpenCV, TensorFlow
 2. Point Grey CM3-U3-13S2M-CS: [Link](https://www.ptgrey.com/chameleon3-13-mp-mono-usb3-vision) - Mono (BW)
 3. RPi Camera v2: [Link](https://www.raspberrypi.org/products/camera-module-v2/)
+
+
+### References
+1. OpenCV 3.0 installation on RPi Stretch: [Link](https://www.pyimagesearch.com/2017/09/04/raspbian-stretch-install-opencv-3-python-on-your-raspberry-pi/)
