@@ -1,0 +1,29 @@
+{
+    'faceID': '0Q7UBTXWX9',
+    'age': 14,
+    'gender': 'female',
+    'start_reaction': 'disgust',
+    'end_reaction': 'contempt',
+    'face_attributes': {
+        'hair': {
+            'color': 'gray',
+            'bald': False
+        },
+        'facial_hair': {
+            'beard': True,
+            'moustache': True
+        }
+    },
+    'accessories': {
+        'glasses': True,
+        'makeup': {
+            'eyeMakeup': True,
+            'lipMakeup': True
+        }
+    },
+    'occlusion': {
+        'foreheadOccluded': False,
+        'eyeOccluded': True,
+        'mouthOccluded': False
+    }
+}
