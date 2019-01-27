@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 from datetime import datetime
 import json
 
@@ -7,6 +8,7 @@ import json
 app = Flask('main')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
+CORS(app)
 
 
 # DOA for each viewing
@@ -32,6 +34,7 @@ class View(db.Model):
 
     def to_dict(self):
         serialized = {
+            "timestamp": self.timestamp,
             "age": self.age,
             "gender": self.gender,
             "reaction": self.reaction,
@@ -196,4 +199,4 @@ def _calc_reaction_change(start_reaction, end_reaction):
 
 
 # Running the WebServer
-Flask.run(app, host="localhost", port=8080)
+Flask.run(app, host="localhost", port=8085)
