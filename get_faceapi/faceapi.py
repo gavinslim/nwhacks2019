@@ -17,13 +17,15 @@ params = {
     'returnFaceAttributes': 'age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories',
 }
 
+people = {}
+
 for im in local_imgglob:
     faces = faceapi_utils.get_resp(im, params) #Array of all faces
-    people = {}
 
     for p in faces:
+        #if p["faceID"] 
         newPerson = person.Person(p, __TIME__)
+        print(newPerson.faceID)
         people[newPerson.faceID] = newPerson
-        print(newPerson)
 
     #faceapi_utils.annotate_image(im, people)
