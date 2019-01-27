@@ -1,5 +1,5 @@
 # Team Submission for nwHacks 2019
-
+#
 ### Proposal
 * Determine success of a advertisement based on number of people and duration it is looked at
 * Have an interface to easily access demographic data and statistics
