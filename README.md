@@ -37,17 +37,18 @@ Our solution comes in two main parts: software and hardware. We can describe out
 
 ### Challenges we ran into
  * Frame-rate and detection accuracy of the Cascade Network
- * Initial configuration of RPi with OpenCV and Raspbian Stretch
- * Optimizing processing speed of RPi when running detection algorithm
+ * Initial configuration of RPi with OpenCV and Raspbian Stretch. Ensured all libraries were installed and cross-checked with available documentations and tutorials
+ * Optimizing processing speed of RPi when running detection algorithm (WiP)
 
 ### Accomplishments that we're proud of
-
+ * Implementing Harr feature-based cascade classifier for face detection
 
 ### What we learned
-
+ * How cascade classifier works and harr feature-based classifier is generated
+ * How to implement OpenCV 3.0 using Python3 in Raspbian
 
 ### What's next for AdSight
-
+ * Optimize processing speed of RPi when running detection algorithm by implementing multi-threading (separate video capture and main thread) 
 
 # Rough Details
 ### Software
