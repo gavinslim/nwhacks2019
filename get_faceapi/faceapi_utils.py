@@ -6,7 +6,7 @@ from PIL import Image
 
 def annotate_image(image_url, faces):
 
-    image_file = io.BytesIO(requests.get(image_url).content)
+    image_file = open(image_url, "rb")
     image = Image.open(image_file)
 
     plt.figure(figsize=(8,8))
@@ -23,13 +23,16 @@ def annotate_image(image_url, faces):
     plt.axis("off")
     plt.show()
 
-def get_resp(image_url, params):
+def get_resp(path, params):
     __subscription_key = "30c9191c099b4dc5b8cf3ebe1cf06310"
     assert __subscription_key
     __face_api_url = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect'
 
-    headers = { 'Ocp-Apim-Subscription-Key': __subscription_key }
+    headers = { 'Content-Type': 'application/octet-stream',
+                'Ocp-Apim-Subscription-Key': __subscription_key }
 
-    response = requests.post(__face_api_url, params=params, headers=headers, json={"url": image_url})
+    data = open(path, "rb")
+
+    response = requests.post(__face_api_url, params=params, headers=headers, data=data)
     faces = response.json()
     return faces

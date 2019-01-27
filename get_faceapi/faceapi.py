@@ -1,16 +1,21 @@
 import faceapi_utils
+import person
 
-image_url = 'https://how-old.net/Images/faces2/main007.jpg'
+local0 = "test_imgs/0.jpg"
+local1 = "test_imgs/1.jpg"
+local2 = "test_imgs/2.jpg"
 
 params = {
     'returnFaceId': 'true',
     'returnFaceLandmarks': 'false',
-    'returnFaceAttributes': 'age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise',
+    'returnFaceAttributes': 'age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories',
 }
 
-faces = faceapi_utils.get_resp(image_url, params) #Array of all faces
-print(faces)
-people = []
+faces = faceapi_utils.get_resp(local2, params) #Array of all faces
+people = {}
 
+for p in faces:
+    newPerson = person.Person(p)
+    print(newPerson)
 
-faceapi_utils.annotate_image(image_url, faces)
+faceapi_utils.annotate_image(local2, faces)
