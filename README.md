@@ -60,7 +60,6 @@ Our solution comes in two main parts: software and hardware. We can describe out
     - If Face ID is in pose where looking at camera for more than a designated period of time, count impression
     - Uses RESTful API: [Link](https://docs.microsoft.com/en-gb/azure/cognitive-services/face/QuickStarts/Python)
     - Get demographics
-      - returnFaceAttributes
     - Face API .ipynb example: [Link](https://hub.mybinder.org/user/microsoft-cogni-vices-notebooks-yyu0i5ow/notebooks/FaceAPI.ipynb)
 2. Web App
   - Break down demographics of each ad per hour
