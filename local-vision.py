@@ -7,7 +7,10 @@ import sys
 import datetime
 import time
 import os
+import subprocess
 
+print('python ' + os.getcwd() + '/get_faceapi/faceapi.py')
+subprocess.call('python ' + os.getcwd() + '/get_faceapi/faceapi.py')
 
 # cascPath_frontal = sys.argv[1]
 #cascPath_side = sys.argv[1]
@@ -29,27 +32,15 @@ def get_image():
     ret, frame = video_capture.read()
     return frame
 
-#start = datetime.datetime.now()
 start = datetime.datetime.now()
 
-while True:
-    #delta = curr - start
-
-    # wait in loop until time threshold elapsed
-    #while delta.microseconds/1000 <= 250:
-        #print(delta.microseconds/1000)
-    #    curr = datetime.datetime.now()  # check current time
-    #    delta = curr - start # get time elapsed
-
-    # Capture frame-by-frame
-    #ret, frame = video_capture.read()
-    #cv2.imshow('Video', frame)
+while 1==1:
+    take_pic = 0
     curr = datetime.datetime.now()
     offset = curr-start
 
     if offset.seconds + offset.microseconds/1e6 > __INTERVAL__:
         start = datetime.datetime.now()
-        print((offset.seconds + offset.microseconds/1e6) - __INTERVAL__)
 
         frame = get_image()
         # Convert to grayscale
@@ -67,7 +58,6 @@ while True:
             draw_right = 1
             take_pic = 1
 
-        # http://answers.opencv.org/question/204685/why-it-cannot-detect-some-profile-face/
         else:
             flipped = cv2.flip(gray, 1)
             faces_left = faceCascade_side.detectMultiScale(
@@ -96,9 +86,10 @@ while True:
         if take_pic == 1:
             timestr = datetime.datetime.now().strftime("%m_%d_%H_%M_%S.%f")[:-5] #month_day_hour_second_millisecond 1dp
             cv2.imwrite('get_faceapi/imgs/{0}.jpg'.format(timestr),frame)
-            take_pic = 0
             count = count + 1
             print(count)
+            print((offset.seconds + offset.microseconds/1e6) - __INTERVAL__)
+            print('____________')
 
     # Draw rectangle
     # if draw_right == 1:
@@ -124,5 +115,3 @@ while True:
     #     break
 
 # When everything is done, release the capture
-video_capture.release()
-cv2.destroyAllWindows()

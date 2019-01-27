@@ -6,7 +6,7 @@ import dump_to_json
 from datetime import datetime
 import os
 
-local_imgglob = glob.glob("imgs/*.jpg")
+local_imgglob = glob.glob("get_faceapi/imgs/*.jpg")
 local_imgglob.sort(key=os.path.getmtime)
 
 params = {
@@ -17,6 +17,11 @@ params = {
 
 people = {}
 faceapi_utils.post_facelist()
+
+print("Awaiting images")
+while len(glob.glob("get_faceapi/imgs/*.jpg")) == 0:
+    print(len(glob.glob("get_faceapi/imgs/*.jpg")))
+    time.sleep(1)
 
 for im in local_imgglob:
     faces = faceapi_utils.get_resp(im, params) #Array of all faces in frame
@@ -49,7 +54,7 @@ for im in local_imgglob:
     print('_____________')
 
     os.remove(im)
-    local_imgglob = glob.glob("imgs/*.jpg")
+    local_imgglob = glob.glob("get_faceapi/imgs/*.jpg")
     local_imgglob.sort(key=os.path.getmtime)
 
 longest = 0
@@ -61,4 +66,4 @@ for PeopleID in people.keys():
     people[PeopleID].timeline = "0" * (longest - len(people[PeopleID].timeline)) + people[PeopleID].timeline
     print(people[PeopleID].timeline)
 
-y = dump_to_json.dump(people)
+#y = dump_to_json.dump(people)
