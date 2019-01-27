@@ -13,21 +13,22 @@ class Person:
          k = list(d.keys())
          return k[v.index(max(v))]
 
-    def __init__(self, json_str):
+    def __init__(self, json_str, time):
 
         self.__CONF_THRESH__ = 0.7 #If scalar >__CONF_THRESH__, is true
         self.__INTERVAL__ = 0.1 #Refresh interval in seconds
         self.__YAWBOUND__ = 10 # +/- in degrees from center
+        self.___TIME__ = time
 
         self.timeline = "" #00001110011 Where 0 represents not looking and 1 represents looking
         self.faceID = json_str["faceId"]
+        self.rect = json_str["faceRectangle"]
         self.attr = json_str["faceAttributes"]
         self.age = self.attr["age"]
         self.gender = self.attr["gender"]
         self.headpose_roll = self.attr["headPose"]["roll"]
         self.headpose_yaw = self.attr["headPose"]["yaw"]
         self.accessories = []
-        self.rect = json_str["faceRectangle"]
 
         if not self.attr["glasses"] == "NullGlasses":
             self.accessories.append(self.attr["glasses"])
@@ -45,11 +46,15 @@ class Person:
         self.beard = self.softmax(self.attr["facialHair"]["beard"])
         self.sideburns = self.softmax(self.attr["facialHair"]["sideburns"])
 
+        self.total_time = 0.0
+
     def get_if_looking(self):
         if abs(self.headpose_yaw) > self.__YAWBOUND__:
             return False
         else:
             return True
+
+    #def
 
     def toJSON(self):
         #TODO Return JSON of class
