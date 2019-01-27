@@ -13,13 +13,13 @@ Physical ads are becoming more and more disadvantaged as more tools are being cr
 
 ### Solution
 Our solution comes in two main parts: software and hardware. We can describe out data flow as follows:
-1. *Hardware - Raspberry Pi running Raspbian*
+1. **Hardware - Raspberry Pi running Raspbian**
   - Get images using OpenCV 2
   - Running Haar-based Cascade filter with a pretrained dataset to check if people are in frame
   - Uses two filters (side and front) to get more yaw coverage
   - If a face is detected, begin saving images from camera to local at set intervals (500ms)
   - Go to 2.
-2. *Software - Azure API*
+2. **Software - Azure API**
   - Glob all images in local
   - Grab head poses of all faces in image by submitting a POST request to MS Azure's Face Detect
   - Check if unique face by running it against MS Azure Face List with FindSimilars
@@ -28,15 +28,17 @@ Our solution comes in two main parts: software and hardware. We can describe out
   - Update attention timelines according to headpose
   - Form person class to .JSON format
   - POST .JSON to webservice (Go to 3.)
-3. *Software - Front End*
+3. **Software - Front End**
   - Add POSTed .JSON to SQLAlchemy DB
   - Filter entries based on user-selected filters (age, gender, etc.)
+4. **Software - DialogFlow**
+  - Provide statistics over DialogFlow
+  
 
 ### Challenges we ran into
  * Frame-rate and detection accuracy of the Cascade Network
  * Initial configuration of RPi with OpenCV and Raspbian Stretch
  * Optimizing processing speed of RPi when running detection algorithm
-
 
 ### Accomplishments that we're proud of
 
