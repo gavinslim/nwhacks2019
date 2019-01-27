@@ -93,11 +93,12 @@ while True:
                     draw_front = 1
                     take_pic = 1
 
-        timestr = datetime.datetime.now().strftime("%m_%d_%H_%M_%S.%f")[:-5] #month_day_hour_second_millisecond 1dp
-        cv2.imwrite('imgs/{0}.jpg'.format(timestr),frame)
-        take_pic = 0
-        count = count + 1
-        print(count)
+        if take_pic == 1:
+            timestr = datetime.datetime.now().strftime("%m_%d_%H_%M_%S.%f")[:-5] #month_day_hour_second_millisecond 1dp
+            cv2.imwrite('get_faceapi/imgs/{0}.jpg'.format(timestr),frame)
+            take_pic = 0
+            count = count + 1
+            print(count)
 
     # Draw rectangle
     # if draw_right == 1:

@@ -4,8 +4,10 @@ import glob
 import time
 import dump_to_json
 from datetime import datetime
+import os
 
-local_imgglob = glob.glob("small_test/*.jpg")
+local_imgglob = glob.glob("imgs/*.jpg")
+local_imgglob.sort(key=os.path.getmtime)
 
 params = {
     'returnFaceId': 'true',
@@ -45,6 +47,10 @@ for im in local_imgglob:
     print(len(people), len(faces))
     print(im)
     print('_____________')
+
+    os.remove(im)
+    local_imgglob = glob.glob("imgs/*.jpg")
+    local_imgglob.sort(key=os.path.getmtime)
 
 longest = 0
 for PeopleID in people.keys():
