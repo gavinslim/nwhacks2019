@@ -17,8 +17,8 @@ def annotate_image(image_url, people):
         p = patches.Rectangle(origin, fr["width"], \
                               fr["height"], fill=False, linewidth=2, color='b')
         ax.axes.add_patch(p)
-        plt.text(origin[0], origin[1], "%s, %d"%(face.gender.capitalize(), face.age), \
-                 fontsize=20, weight="bold", va="bottom")
+        plt.text(origin[0], origin[1], "%s"%(face.get_if_looking()), \
+                 fontsize=20, weight="bold", va="bottom", color=(1,1,1))
     plt.axis("off")
     plt.show()
 
