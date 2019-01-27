@@ -28,3 +28,7 @@
 
 ### References
 1. OpenCV 3.0 installation on RPi Stretch: [Link](https://www.pyimagesearch.com/2017/09/04/raspbian-stretch-install-opencv-3-python-on-your-raspberry-pi/)
+
+
+### Temp
+Error: libjasper.so.1: cannot open shared object opencv
