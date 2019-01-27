@@ -18,7 +18,7 @@ faceapi_utils.post_facelist()
 while True:
     print("Awaiting images")
     while len(glob.glob("*.jpg")) == 0:
-        time.sleep(1.0)
+        time.sleep(0.1)
     print("Images found!")
 
     local_imgglob = glob.glob("*.jpg")
