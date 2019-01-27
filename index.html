@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Adsight</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="master.css">
+</head>
+
+<body>
+    <header>
+        <div class="row">
+            <div class="col-md-12">
+                <img src="Resources/logo.png" alt="Logo" class="img-responsive">
+            </div>
+        </div>
+    </header>
+
+    <!-- Filter Area Sidebar Start -->
+    <!-- TODO: The navbar is not visible on screen after the vertical end of screen. -->
+    <!-- TODO: Figure out the UI to open the Sidebar once it is closed. An idea is for a pull-over button when move is moved to the end of the screen -->
+    <nav class="sidebar hide">
+        <div class="row">
+            <div class="col-md-10">
+                <h1>Filters</h1>
+            </div>
+            <div id="nav-close" class="col-md-2">&gt;</div>
+        </div>
+        <ul class="filters">
+            <li>
+                <div class="row">
+                    <div class="col-md-4">Age</div>
+                    <div class="col-md-3">
+                        <input type="number" placeholder="Min Age">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" placeholder="Max Age">
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="row">
+                    <div class="col-md-4">Gender</div>
+                    <div class="col-md-4">
+                        <select name="gender" id="gender">
+                            <option value="male">Male</option>
+                            <option value="female">female</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="row">
+                    <div class="col-md-4">Reaction</div>
+                    <div class="col-md-4">
+                        <select name="reaction" id="reaction" multiple>
+                            <option value="anger">Anger</option>
+                            <option value="contempt">Contempt</option>
+                            <option value="disgust">Disgust</option>
+                            <option value="fear">Fear</option>
+                            <option value="happiness">Happiness</option>
+                            <option value="neutral">Neutral</option>
+                            <option value="sadness">Sadness</option>
+                            <option value="Surprise">Surprise</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <hr>
+            <li>
+                <div class="row">
+                    <div class="col-md-4">Hair Color</div>
+                    <div class="col-md-4">
+                        <select name="hair-color" id="hair-color" multiple>
+                            <option value="brown">Brown</option>
+                            <option value="black">Black</option>
+                            <option value="red">Red</option>
+                            <option value="gray">Gray</option>
+                            <option value="blonde">Blonde</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="row">
+                    <div class="col-md-4">Bald</div>
+                    <div class="col-md-4">
+                        <input type="checkbox" name="bald">
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="row">
+                    <div class="col-md-4">Facial Hair</div>
+                    <div class="col-md-4">
+                        <select name="facial-hair" id="facial-hair" multiple>
+                            <option value="mustache">Mustache</option>
+                            <option value="beard">Beard</option>
+                            <option value="sideburns">Sideburns</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <hr>
+            <li>
+                <div class="row">
+                    <div class="col-md-4">Accessories</div>
+                    <div class="col-md-4">
+                        <select name="accessories" id="accessories" multiple>
+                            <option value="glasses">Glasses</option>
+                            <option value="glasses">Eye Makeup</option>
+                            <option value="glasses">Lip Makeup</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="row">
+                    <div class="col-md-4">Occlusions</div>
+                    <div class="col-md-4">
+                        <select name="occlusions" id="occlusions" multiple>
+                            <option value="forehead">ForeHead</option>
+                            <option value="eye">Eye Occluded</option>
+                            <option value="mouth">Mouth Occluded</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <!-- Filter Area Sidebar Ends -->
+
+    <main class="container-fluid">
+        <div class="row">
+            <div id="chart-container">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+    </main>
+</body>
+
+<!-- Bootstrap Layers -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+<!-- Chart JS Script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+<!-- Custom Scripts -->
+<script src="script.js"></script>
+<script src="chart.js"></script>
+
+</html>

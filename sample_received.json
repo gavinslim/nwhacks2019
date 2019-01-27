@@ -1,0 +1,35 @@
+{
+    "faceID": "string",
+    "age": 21,
+    "gender": "string male/female",
+    "start_reaction": "string", // note to get this value from the emotion object not the smile.
+    "end_reaction": "string",
+    "timestamp": "string", //Time for ad start in utc
+    "timeline": "string of 0s or 1s e.g. 00001110011", //Where 0 represents not looking and 1 represents looking
+    "face_attributes": {
+        "hair": {
+            "color": "string",
+            "bald": true // boolean
+        },
+        "facial_hair": {
+            "moustache": true, // boolean
+            "beard": true // boolean
+        },
+        "accessories": {
+            "glasses": {
+                // get these value from the glasses from the glasses object. ignore the glasses value in the accessories array. don't ignore other accessories 
+                "type": "ReadingGlasses",
+                "wearing": true // boolean
+            },
+            "makeup": {
+                "eyeMakeup": false,
+                "lipMakeup": true
+            }
+        }, 
+        "occlusion": {
+            "foreheadOccluded": false,
+            "eyeOccluded": false,
+            "mouthOccluded": false
+          }
+    }
+}

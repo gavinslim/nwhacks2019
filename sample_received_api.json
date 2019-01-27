@@ -1,0 +1,55 @@
+/*
+    By making multiple method calls to the data service that we have,
+    we will aggregate that data and return json which will count the
+    number of people with each attribute.
+
+    The new service shall allow for filters. Most filters will have array values.
+    Attributes that match the value present in the array should be included in the
+    response. Absense of a filter should default to including all values.
+
+    For example, I hit the URL with following params:
+        1)  gender: male.
+                >>> All values with gender === male should be counted.
+        2)  reaction: ['positive', 'neutral']
+                >>> All values with reaction === 'positive' OR reaction === 'neutral' should be included.
+                    Values with reaction === 'negative' should be discarded from the response.
+*/  
+
+{
+    "from": "string time",
+    "to": "string time",
+    "gender": {
+        "male": 10,
+        "female": 10
+    },
+    "reaction": {
+        "positive": 5,
+        "negative": 5,
+        "neutral": 10
+    },
+    "facial_attributes": {
+        "moustache": 7,
+        "beard": 9
+    },
+    "hair": {
+        "color": {
+            "brown": 3,
+            "black": 3,
+            "red": 3,
+            "gray": 3,
+            "blonde": 3,
+            "other": 5    
+        },
+        "bald": 9
+    },
+    "accessories": {
+        "glasses": 18,
+        "eyeMakeup": 10,
+        "lipMakeup": 10
+    },
+    "occlusions": {
+        "foreheadOccluded": 5,
+        "eyeOccluded": 16,
+        "mouthOccluded": 10
+    }
+}
