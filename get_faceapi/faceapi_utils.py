@@ -12,13 +12,14 @@ def annotate_image(image_url, people):
     plt.figure(figsize=(8,8))
     ax = plt.imshow(image, alpha=1.0)
     for face in people.itervalues():
-        fr = face.rect
-        origin = (fr["left"], fr["top"])
-        p = patches.Rectangle(origin, fr["width"], \
-                              fr["height"], fill=False, linewidth=2, color='b')
-        ax.axes.add_patch(p)
-        plt.text(origin[0], origin[1], "%s"%(face.faceID[:6]), \
-                 fontsize=20, weight="bold", va="bottom", color=(1,1,1))
+        if face.timeline[-1] == "1":
+            fr = face.rect
+            origin = (fr["left"], fr["top"])
+            p = patches.Rectangle(origin, fr["width"], \
+                                  fr["height"], fill=False, linewidth=2, color='b')
+            ax.axes.add_patch(p)
+            plt.text(origin[0], origin[1], "%s"%(face.faceID[:6]), \
+                     fontsize=20, weight="bold", va="bottom", color=(1,1,1))
     plt.axis("off")
     plt.show()
 
@@ -53,8 +54,9 @@ def get_similar(faceID1, faceID2):
         return False
 
 def post_newPerson(path, target):
+    print('API CALL 3')
     __subscription_key = "61246efcaeac473fa675ffd8446b8110"
-    __face_api_url = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/largefacelists/nwhacksfacelist/persistedfaces?NA&targetFace='+target
+    __face_api_url = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/facelists/nwhacksfacelist/persistedfaces?NA&targetFace='+target
 
     headers = {'Content-Type': 'application/octet-stream',
                'Ocp-Apim-Subscription-Key': __subscription_key}
@@ -63,12 +65,14 @@ def post_newPerson(path, target):
 
     response = requests.post(__face_api_url, headers=headers, data = data)
     response = response.json()
+    print(response)
 
     return response["persistedFaceId"]
 
-def post_largefacelist():
+def post_facelist():
+    print('API CALL 4')
     __subscription_key = "61246efcaeac473fa675ffd8446b8110"
-    __face_api_url = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/largefacelists/nwhacksfacelist'
+    __face_api_url = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/facelists/nwhacksfacelist'
 
     headers = {'Content-Type': 'application/json',
                'Ocp-Apim-Subscription-Key': __subscription_key}
@@ -77,15 +81,19 @@ def post_largefacelist():
     response = requests.put(__face_api_url, headers=headers, json={"name": "nwhacksfacelist"})
 
 def post_findsimilars(faceId):
+    print('API CALL 5')
     __subscription_key = "61246efcaeac473fa675ffd8446b8110"
-    __face_api_url = 'https://westcentralus.apiapi.cognitive.microsoft.com/face/v1.0/findsimilars'
+    __face_api_url = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/findsimilars'
 
     headers = {'Content-Type': 'application/json',
                'Ocp-Apim-Subscription-Key': __subscription_key}
 
     response = requests.post(__face_api_url, headers=headers, json={"faceId": faceId,
-                                                                    "largeFaceListId": "nwhacksfacelist"})
+                                                                    "faceListId": "nwhacksfacelist"})
 
-    response = response.json()
-
-    return response["persistedFaceId"], response["confidence"]
+    if len(response.json()) == 0:
+        return None
+    else:
+        print(response.json())
+        response = response.json()[0]
+        return response["persistedFaceId"]#, response["confidence"]

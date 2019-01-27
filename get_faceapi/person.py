@@ -1,4 +1,5 @@
 import json
+import time
 
 class Person:
 
@@ -9,7 +10,14 @@ class Person:
         self.__YAWBOUND__ = 20 # +/- in degrees from center
 
         self.timeline = "1" #00001110011 Where 0 represents not looking and 1 represents looking
-        self.faceID = json_str["faceId"]
+
+        try:
+            self.faceID = json_str["faceId"]
+        except TypeError:
+            print('TIMEOUT: Wait 3 sec')
+            time.sleep(3)
+            self.faceID = json_str["faceId"]
+
         self.rect = json_str["faceRectangle"]
         self.attr = json_str["faceAttributes"]
         self.age = self.attr["age"]
@@ -37,6 +45,7 @@ class Person:
         self.total_time = 0.0
 
     def update_vals(self, updated_face):
+        self.prev_rect = self.rect
         self.rect = updated_face["faceRectangle"]
         self.attr = updated_face["faceAttributes"]
         self.headpose_roll = self.attr["headPose"]["roll"]
@@ -47,7 +56,10 @@ class Person:
             self.timeline += "1"
             self.total_time += 0.1
         else:
-            self.timeline += "0"
+            self.elim_inactive()
+
+    def elim_inactive(self):
+        self.timeline += "0"
 
     def softmax(self, val):
         if val > self.__CONF_THRESH__:

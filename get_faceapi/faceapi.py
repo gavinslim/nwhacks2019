@@ -13,26 +13,37 @@ params = {
 }
 
 people = {}
-faceapi_utils.post_largefacelist()
+faceapi_utils.post_facelist()
 
 for im in local_imgglob:
     faces = faceapi_utils.get_resp(im, params) #Array of all faces in frame
+    updated_faces = []
     for p in faces:
         newPerson = person.Person(p)
-        if faceapi_utils.post_findsimilars(p.faceID)[1] > 0.7 and len(people.values >= 0): #Check confidence threshold and if db isn't empty
-            #update
-            pass
-        else:
+        if len(people.values()) <= 0:
             target = str(newPerson.rect['left']) + ',' + str(newPerson.rect['top']) + ',' +str(newPerson.rect['width']) + ',' +str(newPerson.rect['height'])
             newPerson.faceID = faceapi_utils.post_newPerson(im, target) # Set persistant ID
             people[newPerson.faceID] = newPerson
+            updated_faces.append(newPerson.faceID)
+        else:
+            sim_results = faceapi_utils.post_findsimilars(newPerson.faceID)
+            if sim_results is not None: #Check confidence threshold
+                people[sim_results].update_vals(p)
+                updated_faces.append(sim_results)
+            else:
+                target = str(newPerson.rect['left']) + ',' + str(newPerson.rect['top']) + ',' +str(newPerson.rect['width']) + ',' +str(newPerson.rect['height'])
+                newPerson.faceID = faceapi_utils.post_newPerson(im, target) # Set persistant ID
+                people[newPerson.faceID] = newPerson
+                updated_faces.append(newPerson.faceID)
 
+    for x in people.keys():
+        if not x in updated_faces:
+            people[x].elim_inactive()
 
     faceapi_utils.annotate_image(im, people)
     print(len(people), len(faces))
     print(im)
     print('_____________')
-    time.sleep(3)
 
 for PeopleID in people.keys():
     print(people[PeopleID].timeline)
