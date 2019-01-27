@@ -7,7 +7,8 @@ import json
 #Remove below this
 import random
 def randomdate():
-    d = datetime.strptime('{}-{}-{}'.format(random.randint(2010, 2019), random.randint(1, 12), random.randint(1, 28)), '%Y-%m-%d')
+    d = '{}-{}-{} {}:{}'.format(random.randint(2019, 2019), random.randint(1, 1), random.randint(27, 27), random.randint(1, 23), random.randint(1, 59))
+    d = datetime.strptime(d, '%Y-%m-%d %H:%M')
     return d
 
 # Remove above this
@@ -24,7 +25,7 @@ class View(db.Model):
     age = db.Column(db.Integer, nullable=False)
     gender = db.Column(db.String, nullable=False)
     reaction = db.Column(db.String, nullable=False)
-    timestamp = db.Column(db.DateTime, nullable=False)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.now())
     hair_color = db.Column(db.String, nullable=False)
     bald = db.Column(db.Boolean, nullable=False)
     mustache = db.Column(db.Boolean, nullable=False)
@@ -87,12 +88,12 @@ def save():
         forehead_occluded=data['occlusion']['foreheadOccluded'],
         eye_occluded=data['occlusion']['eyeOccluded'],
         mouth_occluded=data['occlusion']['mouthOccluded'],
-        timestamp = randomdate()
+        #  Enable this to randomly generate dates
+        # timestamp = randomdate()
     )
     db.session.add(view)
     db.session.commit()
     return "Success"
-
 
 @app.route('/', methods=['GET'])
 def get():
@@ -207,4 +208,5 @@ def _calc_reaction_change(start_reaction, end_reaction):
 
 
 # Running the WebServer
-Flask.run(app, host="localhost", port=8085)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8085)

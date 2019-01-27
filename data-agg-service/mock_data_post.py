@@ -48,7 +48,7 @@ def rand_data():
     }
 
 
-for i in range (0, 999):
+for i in range (0, 5000):
     res = requests.post(url='http://localhost:8085/', json=rand_data())
     print (rand_data())
 

@@ -13,125 +13,124 @@
 </head>
 
 <body>
-    <header>
-        <div class="row">
-            <div class="col-md-12">
-                <img src="Resources/logo.png" alt="Logo" class="img-responsive">
-            </div>
-        </div>
-    </header>
-
-    <!-- Filter Area Sidebar Start -->
+        <!-- Filter Area Sidebar Start -->
     <!-- TODO: The navbar is not visible on screen after the vertical end of screen. -->
     <!-- TODO: Figure out the UI to open the Sidebar once it is closed. An idea is for a pull-over button when move is moved to the end of the screen -->
     <nav class="sidebar hide">
-        <div class="row">
-            <div class="col-md-10">
-                <h1>Filters</h1>
+            <div class="row">
+                <div class="col-md-10">
+                    <h1>Filters</h1>
+                </div>
+                <div id="nav-close" class="col-md-2">&gt;</div>
             </div>
-            <div id="nav-close" class="col-md-2">&gt;</div>
+            <ul class="filters">
+                <li>
+                    <div class="row">
+                        <div class="col-md-4">Age</div>
+                        <div class="col-md-3">
+                            <input type="number" name="min-age" placeholder="Min Age">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" name="max-age" placeholder="Max Age">
+                        </div>
+                    </div>
+                </li>
+    
+                <li>
+                    <div class="row">
+                        <div class="col-md-4">Gender</div>
+                        <div class="col-md-4">
+                            <select name="gender" id="gender">
+                                <option value="male">Male</option>
+                                <option value="female">female</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div class="col-md-4">Reaction</div>
+                        <div class="col-md-4">
+                            <select name="reaction" id="reaction" multiple>
+                                <option value="positive">Positive</option>
+                                <option value="negative">Negative</option>
+                                <option value="neutral">Neutral</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <hr>
+                <li>
+                    <div class="row">
+                        <div class="col-md-4">Hair Color</div>
+                        <div class="col-md-4">
+                            <select name="hair-color" id="hair-color" multiple>
+                                <option value="brown">Brown</option>
+                                <option value="black">Black</option>
+                                <option value="red">Red</option>
+                                <option value="gray">Gray</option>
+                                <option value="blonde">Blonde</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div class="col-md-4">Bald</div>
+                        <div class="col-md-4">
+                            <input type="checkbox" name="bald">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div class="col-md-4">Facial Hair</div>
+                        <div class="col-md-4">
+                            <select name="facial-hair" id="facial-hair" multiple>
+                                <option value="mustache">Mustache</option>
+                                <option value="beard">Beard</option>
+                                <option value="sideburns">Sideburns</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <hr>
+                <li>
+                    <div class="row">
+                        <div class="col-md-4">Accessories</div>
+                        <div class="col-md-4">
+                            <select name="accessories" id="accessories" multiple>
+                                <option value="glasses">Glasses</option>
+                                <option value="eyeMakeup">Eye Makeup</option>
+                                <option value="lipMakeup">Lip Makeup</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div class="col-md-4">Occlusions</div>
+                        <div class="col-md-4">
+                            <select name="occlusions" id="occlusions" multiple>
+                                <option value="forehead">ForeHead</option>
+                                <option value="eye">Eye Occluded</option>
+                                <option value="mouth">Mouth Occluded</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <!-- Filter Area Sidebar Ends -->
+    
+    <header>
+        <div class="row">
+            <div class="col-md-12">
+                <img style="margin-left: 168px" src="Resources/logo.png" alt="Logo" class="img-responsive img-fluid center-block">
+            </div>
         </div>
-        <ul class="filters">
-            <li>
-                <div class="row">
-                    <div class="col-md-4">Age</div>
-                    <div class="col-md-3">
-                        <input type="number" name="min-age" placeholder="Min Age">
-                    </div>
-                    <div class="col-md-3">
-                        <input type="number" name="max-age" placeholder="Max Age">
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="row">
-                    <div class="col-md-4">Gender</div>
-                    <div class="col-md-4">
-                        <select name="gender" id="gender">
-                            <option value="male">Male</option>
-                            <option value="female">female</option>
-                        </select>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="row">
-                    <div class="col-md-4">Reaction</div>
-                    <div class="col-md-4">
-                        <select name="reaction" id="reaction" multiple>
-                            <option value="positive">Positive</option>
-                            <option value="negative">Negative</option>
-                            <option value="neutral">Neutral</option>
-                        </select>
-                    </div>
-                </div>
-            </li>
-            <hr>
-            <li>
-                <div class="row">
-                    <div class="col-md-4">Hair Color</div>
-                    <div class="col-md-4">
-                        <select name="hair-color" id="hair-color" multiple>
-                            <option value="brown">Brown</option>
-                            <option value="black">Black</option>
-                            <option value="red">Red</option>
-                            <option value="gray">Gray</option>
-                            <option value="blonde">Blonde</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="row">
-                    <div class="col-md-4">Bald</div>
-                    <div class="col-md-4">
-                        <input type="checkbox" name="bald">
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="row">
-                    <div class="col-md-4">Facial Hair</div>
-                    <div class="col-md-4">
-                        <select name="facial-hair" id="facial-hair" multiple>
-                            <option value="mustache">Mustache</option>
-                            <option value="beard">Beard</option>
-                            <option value="sideburns">Sideburns</option>
-                        </select>
-                    </div>
-                </div>
-            </li>
-            <hr>
-            <li>
-                <div class="row">
-                    <div class="col-md-4">Accessories</div>
-                    <div class="col-md-4">
-                        <select name="accessories" id="accessories" multiple>
-                            <option value="glasses">Glasses</option>
-                            <option value="eyeMakeup">Eye Makeup</option>
-                            <option value="lipMakeup">Lip Makeup</option>
-                        </select>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="row">
-                    <div class="col-md-4">Occlusions</div>
-                    <div class="col-md-4">
-                        <select name="occlusions" id="occlusions" multiple>
-                            <option value="forehead">ForeHead</option>
-                            <option value="eye">Eye Occluded</option>
-                            <option value="mouth">Mouth Occluded</option>
-                        </select>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </nav>
-    <!-- Filter Area Sidebar Ends -->
-
+    </header>
     <main class="container-fluid">
         <div class="row">
             <div id="day" class="time-button col-md-3 pull-right">
