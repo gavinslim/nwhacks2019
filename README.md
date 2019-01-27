@@ -34,7 +34,9 @@ Our solution comes in two main parts: software and hardware. We can describe out
 
 ### Challenges we ran into
  * Frame-rate and detection accuracy of the Cascade Network
-   * 
+ * Initial configuration of RPi with OpenCV and Raspbian Stretch
+ * Optimizing processing speed of RPi when running detection algorithm
+
 
 ### Accomplishments that we're proud of
 
