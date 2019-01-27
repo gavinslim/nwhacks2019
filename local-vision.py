@@ -6,11 +6,13 @@ import cv2
 import sys
 import datetime
 import time
+import os
 
-cascPath_frontal = sys.argv[1]
-cascPath_side = sys.argv[2]
-faceCascade_frontal = cv2.CascadeClassifier(cascPath_frontal)
-faceCascade_side = cv2.CascadeClassifier(cascPath_side)
+
+# cascPath_frontal = sys.argv[1]
+cascPath_side = sys.argv[1]
+faceCascade_frontal = cv2.CascadeClassifier(os.path.join(os.getcwd(),'haarcascade_frontalface_default.xml'))
+faceCascade_side = cv2.CascadeClassifier(os.path.join(os.getcwd(),'haarcascade_profileface.xml'))
 
 # flags
 take_pic = 0
@@ -18,29 +20,37 @@ draw_front = 0
 draw_left = 0
 draw_right = 0
 
-# allow camera to set up
-#time.sleep(0.1)
+frame_rate = 10
 
 # initialize video capture
 video_capture = cv2.VideoCapture(0)
 
-start = datetime.datetime.now()
+def get_image():
+    ret, frame = video_capture.read()
+    return frame
+
+#start = datetime.datetime.now()
 
 while True:
-    curr = datetime.datetime.now()
-    delta = curr - start
+    #curr = datetime.datetime.now()
+    #delta = curr - start
 
     # wait in loop until time threshold elapsed 
-    while delta.microseconds/1000 <= 500:
-        print(delta.microseconds/1000)
-        curr = datetime.datetime.now()  # check current time
-        delta = curr - start # get time elapsed
+    #while delta.microseconds/1000 <= 250:
+        #print(delta.microseconds/1000)
+    #    curr = datetime.datetime.now()  # check current time
+    #    delta = curr - start # get time elapsed
 
-    start = datetime.datetime.now() 
+    #start = datetime.datetime.now() 
 
     # Capture frame-by-frame
-    ret, frame = video_capture.read()
+    #ret, frame = video_capture.read()
 
+    for i in xrange(frame_rate):
+        frame = get_image()
+        #cv2.imshow('Video', frame)
+        
+    # Convert to grayscale
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     faces_right = faceCascade_side.detectMultiScale(
@@ -82,7 +92,7 @@ while True:
                 take_pic = 1
 
     # Take picture
-    if take_pic == 2:
+    if take_pic == 1:
         timestr = datetime.datetime.now().strftime("%m_%d_%H_%M_%S.%f")[:-5] #month_day_hour_second_millisecond 1dp
         cv2.imwrite('{0}.jpg'.format(timestr),frame)
         take_pic = 0
@@ -106,11 +116,11 @@ while True:
             draw_front = 0
 
     # Display the resulting frame
-    cv2.imshow('Video', frame)
+    #cv2.imshow('Video', frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-    #imageno = imageno +1
+
 # When everything is done, release the capture
 video_capture.release()
 cv2.destroyAllWindows()
