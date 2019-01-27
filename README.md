@@ -34,14 +34,15 @@ Our solution comes in two main parts: software and hardware. We can describe out
 4. **Software - DialogFlow**
   - Provide statistics over DialogFlow
   
-
 ### Challenges we ran into
- * Frame-rate and detection accuracy of the Cascade Network
- * Initial configuration of RPi with OpenCV and Raspbian Stretch. Ensured all libraries were installed and cross-checked with available documentations and tutorials
+ * Frame-rate and detection accuracy of the Cascade Network, worked around by reducing image feed resolution and eliminated frame drawing
+ * Initial configuration of RPi with OpenCV and Raspbian Stretch, took wayyy too long
  * Optimizing processing speed of RPi when running detection algorithm (WiP)
+ * Reached Azure Vision API call limit multiple times. Switched from cross checking all predictions with all known IDs to using FaceList, drastically reducing API calls
 
 ### Accomplishments that we're proud of
  * Implementing Harr feature-based cascade classifier for face detection
+ * Smoothly functioning transition from cascade to Azure Face API
 
 ### What we learned
  * How cascade classifier works and harr feature-based classifier is generated
@@ -49,6 +50,8 @@ Our solution comes in two main parts: software and hardware. We can describe out
 
 ### What's next for AdSight
  * Optimize processing speed of RPi when running detection algorithm by implementing multi-threading (separate video capture and main thread) 
+ * Further explore the possibilities of DialogFlow
+ * Optimize API calls
 
 # Rough Details
 ### Software
