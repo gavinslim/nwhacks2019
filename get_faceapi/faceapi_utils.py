@@ -4,21 +4,20 @@ import io
 from matplotlib import patches
 from PIL import Image
 
-def annotate_image(image_url, faces):
+def annotate_image(image_url, people):
 
     image_file = open(image_url, "rb")
     image = Image.open(image_file)
 
     plt.figure(figsize=(8,8))
     ax = plt.imshow(image, alpha=1.0)
-    for face in faces:
-        fr = face["faceRectangle"]
-        fa = face["faceAttributes"]
+    for face in people.itervalues():
+        fr = face.rect
         origin = (fr["left"], fr["top"])
         p = patches.Rectangle(origin, fr["width"], \
                               fr["height"], fill=False, linewidth=2, color='b')
         ax.axes.add_patch(p)
-        plt.text(origin[0], origin[1], "%s, %d"%(fa["gender"].capitalize(), fa["age"]), \
+        plt.text(origin[0], origin[1], "%s, %d"%(face.gender.capitalize(), face.age), \
                  fontsize=20, weight="bold", va="bottom")
     plt.axis("off")
     plt.show()

@@ -16,17 +16,18 @@ class Person:
     def __init__(self, json_str):
 
         self.__CONF_THRESH__ = 0.7 #If scalar >__CONF_THRESH__, is true
-        self.__INTERVAL = 0.1 #Refresh interval in seconds
+        self.__INTERVAL__ = 0.1 #Refresh interval in seconds
+        self.__YAWBOUND__ = 10 # +/- in degrees from center
 
         self.timeline = "" #00001110011 Where 0 represents not looking and 1 represents looking
         self.faceID = json_str["faceId"]
         self.attr = json_str["faceAttributes"]
         self.age = self.attr["age"]
         self.gender = self.attr["gender"]
-        self.headpose_pitch = self.attr["headPose"]["pitch"]
         self.headpose_roll = self.attr["headPose"]["roll"]
         self.headpose_yaw = self.attr["headPose"]["yaw"]
         self.accessories = []
+        self.rect = json_str["faceRectangle"]
 
         if not self.attr["glasses"] == "NullGlasses":
             self.accessories.append(self.attr["glasses"])
@@ -45,7 +46,10 @@ class Person:
         self.sideburns = self.softmax(self.attr["facialHair"]["sideburns"])
 
     def get_if_looking(self):
-        pass
+        if abs(self.headpose_yaw) > self.__YAWBOUND__:
+            return False
+        else:
+            return True
 
     def toJSON(self):
         #TODO Return JSON of class
@@ -55,7 +59,6 @@ class Person:
         return "ID: " + str(self.faceID) + \
         "\nAge: " + str(self.age) + \
         "\nGender: " + str(self.gender) + \
-        "\nPitch: " + str(self.headpose_pitch) + \
         "\nRoll: " + str(self.headpose_roll) + \
         "\nYaw: " + str(self.headpose_yaw) + \
         "\nAccessories: " + ''.join(self.accessories) + \

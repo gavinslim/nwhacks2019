@@ -16,6 +16,7 @@ people = {}
 
 for p in faces:
     newPerson = person.Person(p)
+    people[newPerson.faceID] = newPerson
     print(newPerson)
 
-faceapi_utils.annotate_image(local2, faces)
+faceapi_utils.annotate_image(local2, people)
