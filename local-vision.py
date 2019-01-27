@@ -15,6 +15,12 @@ count_right = 0
 count_left = 0
 count_front = 0
 
+front_filter = 1
+left_filter = 0
+right_filter = 0
+
+take_pic = 0
+
 while True:
     # Capture frame-by-frame
     ret, frame = video_capture.read()
@@ -28,15 +34,16 @@ while True:
         minSize=(30, 30),
         flags=cv2.CASCADE_SCALE_IMAGE
     )
+
     if len(faces_side) > 0:
-        cv2.imwrite('detected_image_right{0}.jpg'.format(count_right),frame)
-        count_right = count_right + 1
+        #cv2.imwrite('detected_image_right{0}.jpg'.format(count_right),frame)
+        #count_right = count_right + 1
 
-        for (x, y, w, h) in faces_other_side:
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+        for (x, y, w, h) in faces_side:
+            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 0), 2) #Green
 
-# http://answers.opencv.org/question/204685/why-it-cannot-detect-some-profile-face/
-    if len(faces_side) == 0:
+    # http://answers.opencv.org/question/204685/why-it-cannot-detect-some-profile-face/
+    else:
         flipped = cv2.flip(gray, 1)
         faces_other_side = faceCascade_side.detectMultiScale(
             flipped,
@@ -47,10 +54,10 @@ while True:
         )
 
         if len(faces_other_side) > 0:
-            cv2.imwrite('detected_image_left{0}.jpg'.format(count_left),frame)
-            count_left = count_left + 1
+            #cv2.imwrite('detected_image_left{0}.jpg'.format(count_left),frame)
+            #count_left = count_left + 1
             for (x, y, w, h) in faces_other_side:
-                cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+                cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 0), 2) #Red
         else:
             faces_frontal = faceCascade_frontal.detectMultiScale(
                 gray,
@@ -60,16 +67,15 @@ while True:
                 flags=cv2.CASCADE_SCALE_IMAGE
             )
             if len(faces_frontal) > 0:
-                cv2.imwrite('detected_image_front{0}.jpg'.format(count_front),frame)
-                count_front = count_front + 1
+                #cv2.imwrite('detected_image_front{0}.jpg'.format(count_front),frame)
+                #count_front = count_front + 1
                 for (x, y, w, h) in faces_frontal:
-                    cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+                    cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 2) #Blue
 
-    # Draw a rectangle around the faces
- #   if len(faces) > 0:#    cv2.imwrite('detected_image{0}.jpg'.format(imageno),frame)
-    #cv2.imwrite('detected_image.jpg',frame)
-#    for (x, y, w, h) in faces_frontal:
- #       cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+
+    # Drawing rectangle
+    # for (x, y, w, h) in faces_frontal:
+    #    cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
     # Display the resulting frame
     cv2.imshow('Video', frame)
