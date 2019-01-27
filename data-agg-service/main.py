@@ -20,7 +20,7 @@ class View(db.Model):
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     hair_color = db.Column(db.String, nullable=False)
     bald = db.Column(db.Boolean, nullable=False)
-    moustache = db.Column(db.Boolean, nullable=False)
+    mustache = db.Column(db.Boolean, nullable=False)
     beard = db.Column(db.Boolean, nullable=False)
     glasses = db.Column(db.Boolean, nullable=False)
     eye_makeup = db.Column(db.Boolean, nullable=False)
@@ -43,7 +43,7 @@ class View(db.Model):
                 "bald": self.bald
             },
             "facial_hair": {
-                "moustache": self.moustache,
+                "mustache": self.mustache,
                 "beard": self.beard
             },
             "accessories": {
@@ -72,7 +72,7 @@ def save():
         reaction=_calc_reaction_change(data['start_reaction'], data['end_reaction']),
         hair_color=data['face_attributes']['hair']['color'],
         bald=data['face_attributes']['hair']['bald'],
-        moustache=data['face_attributes']['facial_hair']['moustache'],
+        mustache=data['face_attributes']['facial_hair']['mustache'],
         beard=data['face_attributes']['facial_hair']['beard'],
         glasses=data['accessories']['glasses'],
         eye_makeup=data['accessories']['makeup']['eyeMakeup'],
@@ -102,9 +102,9 @@ def get():
     reactions = request.args.get('reactions', type=str)
     if reactions is not None:
         reactions = json.loads(reactions)
-    moustache = request.args.get('moustache', type=str)
-    if moustache is not None:
-        moustache = json.loads(moustache)
+    mustache = request.args.get('mustache', type=str)
+    if mustache is not None:
+        mustache = json.loads(mustache)
     beard = request.args.get('beard', type=str)
     if beard is not None:
         beard = json.loads(beard)
@@ -133,7 +133,7 @@ def get():
     if mouth_occlusion is not None:
         mouth_occlusion = not json.loads(mouth_occlusion)
 
-    results = _read(time_from, time_to, age_from, age_to, genders, reactions, moustache, beard,
+    results = _read(time_from, time_to, age_from, age_to, genders, reactions, mustache, beard,
                     hair_colors, bald, glasses, eye_makeup, lip_makeup, forehead_occlusion,
                     eye_occlusion, mouth_occlusion)
 
@@ -145,7 +145,7 @@ def get():
 
 
 # Helper Methods for serving the endpoints
-def _read(time_from=None, time_to=None, age_from=None, age_to=None, genders=None, reactions=None, moustache=None,
+def _read(time_from=None, time_to=None, age_from=None, age_to=None, genders=None, reactions=None, mustache=None,
           beard=None, hair_colors=None, bald=None, glasses=None, eye_makeup=None, lip_makeup=None,
           forehead_occlusion=None, eye_occlusion=None, mouth_occlusion=None):
     # Applying Filters on Query
@@ -158,8 +158,8 @@ def _read(time_from=None, time_to=None, age_from=None, age_to=None, genders=None
         query = query.filter(View.gender.in_(tuple(genders)))
     if reactions is not None:
         query = query.filter(View.reaction.in_(tuple(reactions)))
-    if moustache is not None:
-        query = query.filter_by(moustache=moustache)
+    if mustache is not None:
+        query = query.filter_by(mustache=mustache)
     if beard is not None:
         query = query.filter_by(beard=beard)
     if hair_colors is not None:

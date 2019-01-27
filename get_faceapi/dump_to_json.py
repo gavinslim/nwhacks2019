@@ -15,7 +15,7 @@ def dump(people):
             },
             "facial_hair": {
                 "beard": person.beard, # boolean
-                "moustache": person.moustache # boolean
+                "mustache": person.mustache # boolean
             },
             "accessories": {
                 person.accessories

@@ -41,7 +41,7 @@ class Person:
         self.emotion = self.softmax_multis(self.attr["emotion"]) #SOFTMAX INPUT
         self.makeup_eye = self.attr["makeup"]["eyeMakeup"]
         self.makeup_lip = self.attr["makeup"]["lipMakeup"]
-        self.moustache = self.softmax(self.attr["facialHair"]["moustache"])
+        self.mustache = self.softmax(self.attr["facialHair"]["mustache"])
         self.beard = self.softmax(self.attr["facialHair"]["beard"])
         self.total_time = 0.0
 

@@ -99,14 +99,106 @@ function filterYearData(){
 
 function filterData(label, timeFrom, timeTo, labels) {
     cachedData = {};
+
+    let ageFrom = document.querySelector("input[name='min-age']").value;
+    let ageTo = document.querySelector("input[name='max-age']").value;
+
+    if ((ageFrom == "" || null) || (ageTo == "" || ageTo == null)) {
+        ageFrom = 0;
+        ageTo = 999;
+    }
+    
+    let genders = [];
+    for (option of document.querySelector('select[name="gender"]').options) {
+        if (option.selected === true) {
+            genders.push(option.value);
+        }
+    }
+    if (genders.length == 0) {
+        genders = null;
+    }
+
+    let reactions = [];
+    for (option of document.querySelector('select[name="reaction"]').options) {
+        if (option.selected === true) {
+            reactions.push(option.value);
+        }
+    }
+    if (reactions.length == 0){
+        reactions = null;
+    }
+
+    let hairColors = [];
+    for (option of document.querySelector('select[name="hair-color"]').options) {
+        if (option.selected === true) {
+            reactions.push(option.value);
+        }
+    };
+    if (hairColors.length == 0){
+        hairColors = null;
+    }
+
+    let bald = document.querySelector('input[type="checkbox"][name="bald"]').checked;
+    
+    let mustache = null;
+    let beard = null;
+    let sideburns = null;
+    for (option of document.querySelector('select[name="facial-hair"]').options) {
+        if (option.selected) {
+            if (option.value == 'mustache') {
+                mustache = true;
+            } else if (option.value == 'beard') {
+                beard = true;
+            } else if (option.value == 'sideburns') {
+                sideburns = true;
+            }
+        }
+    };
+
+
+    let glasses = null;
+    let eyeMakeup = null;
+    let lipMakeup = null;
+    
+    for (option of document.querySelector('select[name="accessories"]').options) {
+        if (option.selected) {
+            if (option.value == 'glasses') {
+                glasses = true;
+            } else if (option.value == 'eyeMakeup') {
+                eyeMakeup = true;
+            } else if (option.value == 'lipMakeup') {
+                lipMakeup = true;
+            }
+        }
+    };
+
+
+    let foreheadOcclusion = null;
+    let mouthOcclusion = null;
+    let eyeOcclusion = null;
+    
+    for (option of document.querySelector('select[name="occlusions"]').options) {
+        if (option.selected) {
+            if (option.value == 'forehead') {
+                foreheadOcclusion = true;
+            } else if (option.value == 'eye') {
+                eyeOcclusion = true;
+            } else if (option.value == 'mouth') {
+                mouthOcclusion = true;
+            }
+        }
+    };
+
     // Building the URL
-    params = `from=${formatTime(timeFrom)}&to=${formatTime(timeTo)}`;// +
-    // `age_from=${ageFrom}&age_to=${ageTo}&genders=${genders}&reactions=${reactions}` + 
-    // `moustache=${moustache}&beard=${beard}&hair_colors=${hairColors}&bald=${bald}` +
-    // `glasses=${glasses}&eye_makeup=${eyeMakeup}&lip_makeup=${lipMakeup}&` +
-    // `forehead_occlusion=${foreheadOcclusion}&mouth_occlusion=${mouthOcclusion}&` + 
-    // `eye_occlusion=${eyeOcclusion}`;
+    params = `from=${formatTime(timeFrom)}&to=${formatTime(timeTo)}&` +
+    `age_from=${ageFrom}&age_to=${ageTo}&genders=${JSON.stringify(genders)}&reactions=${JSON.stringify(reactions)}&` + 
+    `mustache=${mustache}&beard=${beard}&hair_colors=${JSON.stringify(hairColors)}&bald=${bald}&` +
+    `glasses=${glasses}&eye_makeup=${eyeMakeup}&lip_makeup=${lipMakeup}&` +
+    `forehead_occlusion=${foreheadOcclusion}&mouth_occlusion=${mouthOcclusion}&` + 
+    `eye_occlusion=${eyeOcclusion}`;
     url = `${SERVICE_URL}?${params}`;
+
+    console.log(url)
 
     // Getting the DATA
     get(url, (json) => {
@@ -166,7 +258,4 @@ function formatTime(date){
         + date.getSeconds() + '.'
         + date.getMilliseconds();
 }
-
-
-
 // Functions END

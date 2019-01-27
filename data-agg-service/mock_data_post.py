@@ -29,7 +29,7 @@ def rand_data():
             },
             "facial_hair": {
                 "beard": rand_bool(),
-                "moustache": rand_bool(),
+                "mustache": rand_bool(),
             }
         },
         "accessories": {
@@ -49,6 +49,6 @@ def rand_data():
 
 
 for i in range (0, 99):
-    # res = requests.post(url='http://localhost:8080/', json=rand_data())
+    res = requests.post(url='http://localhost:8085/', json=rand_data())
     print (rand_data())
 

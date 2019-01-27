@@ -12,7 +12,7 @@
             "bald": true // boolean
         },
         "facial_hair": {
-            "moustache": true, // boolean
+            "mustache": true, // boolean
             "beard": true // boolean
         },
         "accessories": {

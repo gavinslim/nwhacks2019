@@ -11,7 +11,7 @@
         },
         'facial_hair': {
             'beard': True,
-            'moustache': True
+            'mustache': True
         }
     },
     'accessories': {
