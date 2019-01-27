@@ -1,10 +1,10 @@
 import faceapi_utils
 import person
 import glob
+import time
 from datetime import datetime
-__TIME__ = datetime.utcnow()
 
-local_imgglob = glob.glob("test_imgs/*.jpg")
+local_imgglob = glob.glob("small_test/*.jpg")
 
 params = {
     'returnFaceId': 'true',
@@ -13,20 +13,32 @@ params = {
 }
 
 people = {}
+faceapi_utils.post_largefacelist()
 
 for im in local_imgglob:
     faces = faceapi_utils.get_resp(im, params) #Array of all faces in frame
     for p in faces:
-        if len(people.values()) == 0:
-            newPerson = person.Person(p, __TIME__)
+        if len(people.values()) <= 0:
+            newPerson = person.Person(p)
             people[newPerson.faceID] = newPerson
         else:
-            for k in people.values():
-                if faceapi_utils.get_similar(p['faceId'], k.faceID):
-                    #Handle new values
-                    pass
-                else:
-                    newPerson = person.Person(p, __TIME__)
-                    people[newPerson.faceID] = newPerson
+            for PeopleID in people.keys():
+                print(people.keys())
+                matches = 0
+                match = faceapi_utils.get_similar(p['faceId'], PeopleID)
+                print('Match', match)
+                if match:
+                    people[PeopleID].update_vals(p)
+                    matches += 1
+            if matches == 0:
+                newPerson = person.Person(p)
+                people[newPerson.faceID] = newPerson
 
-    #faceapi_utils.annotate_image(im, people)
+    faceapi_utils.annotate_image(im, people)
+    print(len(people), len(faces))
+    print(im)
+    print('_____________')
+    time.sleep(3)
+
+for PeopleID in people.keys():
+    print(people[PeopleID].timeline)
