@@ -2,7 +2,11 @@ body {
     max-width: 97vw;
     min-height: 100vh;
 }
+#nav-close{
+    cursor: pointer;
+}
 nav.sidebar {
+    z-index: 99;
     background: white;
     max-width: 30%;
     min-width: 300px;
@@ -18,6 +22,28 @@ nav.sidebar.hide.peek {
 }
 nav>ul.filters {
     max-height: 100%;
+    overflow-y: hidden;
+}
+
+select {
+    overflow: auto;
+    background-color: rgb(245, 245, 245);
+    width: 145px;
+    border: 1px solid rgb(245, 245, 245);
+    border-radius: 3px;
+}
+
+.time-button {
+    cursor: pointer;
+    text-align: center;
+    background-color: rgba(202, 202, 202, 0.9);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    transition: color 0.2s ease-in-out;
+}
+
+.time-button:hover {
+    color: white;
 }
 
 #chart-container {

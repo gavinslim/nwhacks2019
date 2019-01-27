@@ -46,7 +46,7 @@
     "gender": "female",
     "age": 24.0,
     "facialHair": {
-      "moustache": 0.0,
+      "mustache": 0.0,
       "beard": 0.0,
       "sideburns": 0.0
     },
