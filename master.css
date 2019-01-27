@@ -20,6 +20,19 @@ nav>ul.filters {
     max-height: 100%;
 }
 
+.time-button {
+    cursor: pointer;
+    text-align: center;
+    background-color: rgba(202, 202, 202, 0.9);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    transition: color 0.2s ease-in-out;
+}
+
+.time-button:hover {
+    color: white;
+}
+
 #chart-container {
     width: 100%;
     max-width: 100vw;
