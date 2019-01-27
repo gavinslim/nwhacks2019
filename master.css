@@ -23,6 +23,7 @@ nav.sidebar.hide.peek {
 nav>ul.filters {
     max-height: 100%;
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 select {
