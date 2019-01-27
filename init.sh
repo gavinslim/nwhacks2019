@@ -1,9 +1,9 @@
 echo 'Cleanup img dir'
-rm get_faceapi/imgs/*.jpg
+rm *.jpg
 
 echo 'Init AdSight service'
 
-python local-vision.py
+python3 local-vision.py
 
 function finish {
   killall python

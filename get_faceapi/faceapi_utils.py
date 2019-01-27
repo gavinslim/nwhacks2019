@@ -1,8 +1,8 @@
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import requests
 import io
-from matplotlib import patches
-from PIL import Image
+#from matplotlib import patches
+#from PIL import Image
 
 def annotate_image(image_url, people):
 

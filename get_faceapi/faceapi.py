@@ -17,11 +17,11 @@ faceapi_utils.post_facelist()
 
 while True:
     print("Awaiting images")
-    while len(glob.glob("get_faceapi/imgs/*.jpg")) == 0:
-        time.sleep(0.1)
+    while len(glob.glob("*.jpg")) == 0:
+        time.sleep(1.0)
     print("Images found!")
 
-    local_imgglob = glob.glob("get_faceapi/imgs/*.jpg")
+    local_imgglob = glob.glob("*.jpg")
     local_imgglob.sort(key=os.path.getmtime)
 
     for im in local_imgglob:
