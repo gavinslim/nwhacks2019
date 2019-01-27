@@ -7,7 +7,7 @@ Contributors: Jacky Zhao, Gavin Lim, Viral Galaiya, Rishab Manocha
 Physical ads are becoming more and more disadvantaged as more tools are being created for tracking impressions, demographics, and statistics for web traffic and adverstisements. The problem is because it is nearly impossible to measure the effectiveness of a physical ad. How can we measure and display these normally 'web-based' metrics for physical ads?
 
 ### Proposal
-* Determine success of a advertisement based on number of people and duration it is looked at
+* Determine success of an advertisement based on number of people and duration it is looked at
 * Have an interface to easily access demographic data and statistics
 * Change advertisement based on demographic for virtual advertisement
 
