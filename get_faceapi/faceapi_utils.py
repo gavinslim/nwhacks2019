@@ -52,8 +52,19 @@ def get_similar(faceID1, faceID2):
     else:
         return False
 
-def post_newPerson(faceID):
-    pass
+def post_newPerson(path, target):
+    __subscription_key = "61246efcaeac473fa675ffd8446b8110"
+    __face_api_url = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/largefacelists/nwhacksfacelist/persistedfaces?NA&targetFace='+target
+
+    headers = {'Content-Type': 'application/octet-stream',
+               'Ocp-Apim-Subscription-Key': __subscription_key}
+
+    data = open(path, "rb")
+
+    response = requests.post(__face_api_url, headers=headers, data = data)
+    response = response.json()
+
+    return response["persistedFaceId"]
 
 def post_largefacelist():
     __subscription_key = "61246efcaeac473fa675ffd8446b8110"
@@ -64,3 +75,17 @@ def post_largefacelist():
 
     response = requests.delete(__face_api_url, headers=headers, json={"name": "nwhacksfacelist"})
     response = requests.put(__face_api_url, headers=headers, json={"name": "nwhacksfacelist"})
+
+def post_findsimilars(faceId):
+    __subscription_key = "61246efcaeac473fa675ffd8446b8110"
+    __face_api_url = 'https://westcentralus.apiapi.cognitive.microsoft.com/face/v1.0/findsimilars'
+
+    headers = {'Content-Type': 'application/json',
+               'Ocp-Apim-Subscription-Key': __subscription_key}
+
+    response = requests.post(__face_api_url, headers=headers, json={"faceId": faceId,
+                                                                    "largeFaceListId": "nwhacksfacelist"})
+
+    response = response.json()
+
+    return response["persistedFaceId"], response["confidence"]
