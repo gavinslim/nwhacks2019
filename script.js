@@ -228,7 +228,6 @@ function showChart(label, labels, data, unit_type) {
         } else if (unit_type == 'year') {
             unit = unit.getMonth();
         }
-        debugger;
         if (cachedData[unit] === undefined) {
             cachedData[unit] = []
         }
@@ -245,7 +244,9 @@ function showChart(label, labels, data, unit_type) {
     for (el of document.querySelectorAll('iframe')) {
         el.remove();
     }
-    document.getElementById('myChart').remove();
+    for (el of document.querySelectorAll('canvas')) {
+        el.remove();
+    }
     let canvas = document.createElement('canvas');
     canvas.id = 'myChart';
     canvasParent.appendChild(canvas);
@@ -263,27 +264,43 @@ function showChart(label, labels, data, unit_type) {
             }]
         },
         options: {
-            events: ['click']
+            events: ['click', 'hover']
         }
      }
     let chart = new Chart(ctx, prev_config);
     document.getElementById('myChart').addEventListener('click', function(e){
-        index = chart.getElementAtEvent(e)[0]['_index'];
+        index = chart.getElementAtEvent(e)[0];
+        if (index !== undefined) {
+            index = index['_index']
+        }
         let dataSet = cachedData[index];
-        if (dataSet == undefined) {
-            index = 0;
-            dataSet = cachedData[index];
-        }
-        while (dataSet === undefined) {
-            index++;
-            dataSet = cachedData[index];
-        }
         showDetailChart(dataSet);
     })
 }
 
 function showDetailChart(dataSet){
-    let ctx = document.getElementById('myChart').getContext('2d');
+    if (dataSet === undefined){
+        console.log("Undefined dataSet.")
+        return;
+    }
+    let can1 = document.createElement('canvas');
+    let can2 = document.createElement('canvas');
+    let can3 = document.createElement('canvas');
+    let can4 = document.createElement('canvas');
+    let can5 = document.createElement('canvas');
+    can1.classList.add('no-resize');
+    can2.classList.add('no-resize');
+    can3.classList.add('no-resize');
+    can4.classList.add('no-resize');
+    can5.classList.add('no-resize');    
+
+    canvasParent.innerHTML = "";
+    canvasParent.append(can1);
+    canvasParent.append(can2);
+    canvasParent.append(can3);
+    canvasParent.append(can4);
+    canvasParent.append(can5);
+    
     
     let males = 0;
     let females = 0;
@@ -354,34 +371,109 @@ function showDetailChart(dataSet){
         if (item['occlusion']['mouthOccluded'])
             mouthOccluded++;
     }
-
-    let stackedBar = new Chart(ctx, {
-        type: 'bar',
+    new Chart(can1.getContext('2d'), {
+        type: 'doughnut',
+        label: 'Gender',
         data: {
-            labels: ['Gender', 'Reaction', 'Hair Color', "Facial Hair", "Makeup", "Occlusions"],
-            datasets: [
-                {
-                    label: 'Male',
-                    data: [males],
-                    backgroundColor: 'red'
-                }, {
-                    label: 'Female',
-                    data: [females],
-                    backgroundColor: 'green'
-                }
-            ]
+            labels: ['Males, Females'],
+            datasets: [{
+                data: [males, females],
+                backgroundColor: ['#B3C100', '#CED2CC', '#4CB5F5', '#DADADA', '#EA6A47', '#D32D41']
+            }]
         },
         options: {
-            scales: {
-                xAxes: [{
-                    stacked: true
-                }],
-                yAxes: [{
-                    stacked: true
-                }]
+            legend: {
+                lables: {
+                    fontSize: 90
+                }
             }
         }
     });
+    new Chart(can2.getContext('2d'), {
+        type: 'doughnut',
+        label: 'Reactions',
+        data: {
+            labels: ['Positive', 'Negative', 'Neutral'],
+            datasets:[{
+                data: [positive, negative, neutral],
+                backgroundColor: ['#B3C100', '#CED2CC', '#4CB5F5', '#DADADA', '#EA6A47', '#D32D41']
+            }]
+        },
+        options: {
+            legend: {
+                lables: {
+                    fontSize: 90
+                }
+            }
+        }
+    });
+    new Chart(can3.getContext('2d'), {
+        type: 'doughnut',
+        label: 'Hair Color',
+        data: {
+            labels: ['Black', 'Brown', 'Gray', 'Red', 'Blonde', 'Other'],
+            datasets: [{
+                data: [blackHair, brownHair, grayHair, redHair, blondes, otherHair],
+                backgroundColor: ['#B3C100', '#CED2CC', '#4CB5F5', '#DADADA', '#EA6A47', '#D32D41']
+            }]
+        },
+        options: {
+            legend: {
+                lables: {
+                    fontSize: 90
+                }
+            }
+        }
+    });
+    new Chart(can4.getContext('2d'), {
+        type: 'doughnut',
+        label: 'Makeup',
+        data: {
+            labels: ['Eye Makeup', 'Lip Makeup'],
+            datasets: [{
+                data: [eyeMakeup, lipMakeup],
+                backgroundColor: ['#B3C100', '#CED2CC', '#4CB5F5', '#DADADA', '#EA6A47', '#D32D41']
+            }]
+        },
+        options: {
+            legend: {
+                lables: {
+                    fontSize: 90
+                }
+            }
+        }
+    });
+    new Chart(can5.getContext('2d'), {
+        type: 'doughnut',
+        label: 'Occlusions',
+        data: {
+            labels: ['Forehead', 'Mouth', 'Eye'],
+            datasets: [{
+                data: [foreheadOccluded, mouthOccluded, eyeOccluded],
+                backgroundColor: ['#B3C100', '#CED2CC', '#4CB5F5', '#DADADA', '#EA6A47', '#D32D41']
+            }]
+        },
+        options: {
+            legend: {
+                lables: {
+                    fontSize: 90
+                }
+            }
+        }
+    });
+    setSize(can1);
+    setSize(can2);
+    setSize(can3);
+    setSize(can4);
+    setSize(can5);
+    
+}
+
+function setSize(el) {
+    el.style.width = "500px";
+    el.style.height = "500px";
+    el.style.display = "inline-block";
+    el.style.margin = "0";
 }
 
 function formatTime(date) {
