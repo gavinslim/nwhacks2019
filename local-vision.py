@@ -10,7 +10,7 @@ import os
 
 
 # cascPath_frontal = sys.argv[1]
-cascPath_side = sys.argv[1]
+#cascPath_side = sys.argv[1]
 faceCascade_frontal = cv2.CascadeClassifier(os.path.join(os.getcwd(),'haarcascade_frontalface_default.xml'))
 faceCascade_side = cv2.CascadeClassifier(os.path.join(os.getcwd(),'haarcascade_profileface.xml'))
 
@@ -19,7 +19,7 @@ take_pic = 0
 draw_front = 0
 draw_left = 0
 draw_right = 0
-
+count = 0
 frame_rate = 10
 
 # initialize video capture
@@ -46,7 +46,7 @@ while True:
     # Capture frame-by-frame
     #ret, frame = video_capture.read()
 
-    for i in xrange(frame_rate):
+    for i in range(frame_rate):
         frame = get_image()
         #cv2.imshow('Video', frame)
         
@@ -96,6 +96,8 @@ while True:
         timestr = datetime.datetime.now().strftime("%m_%d_%H_%M_%S.%f")[:-5] #month_day_hour_second_millisecond 1dp
         cv2.imwrite('{0}.jpg'.format(timestr),frame)
         take_pic = 0
+        count = count + 1
+        print(count)
 
 
     # Draw rectangle
