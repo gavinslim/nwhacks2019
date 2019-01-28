@@ -33,10 +33,7 @@ Our solution comes in two main parts: software and hardware. We can describe out
   - Filter entries based on user-selected filters (age, gender, etc.)
   - Built API for Querying and aggregating data using 16 parameters.
   - Built a Web UI Dashboard for viewing the results on cloud.
-  - Created support for integrating Diagflow.
   - Built a Backend API for receiving post requests and saving data in the database.
-4. **Software - DialogFlow**
-  - Provide statistics over DialogFlow
   
 ### Challenges we ran into
  * Frame-rate and detection accuracy of the Cascade Network, worked around by reducing image feed resolution and eliminated frame drawing
