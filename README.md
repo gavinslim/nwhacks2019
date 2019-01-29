@@ -1,6 +1,6 @@
 ![Adsight](Resources/logo_alpha.png)
 
-# AdSight - Team Submission for nwHacks 2019
+# AdSight - Team Submission for [nwHacks 2019](https://www.nwhacks.io/#/)
 Contributors: Jacky Zhao, Gavin Lim, Viral Galaiya, Rishab Manocha
 
 ### Problem
